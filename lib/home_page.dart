@@ -59,14 +59,14 @@ class _HomePageState extends State<HomePage> {
 
   void moveLeft (){
     setState(() {
-      playerX -= 0.01;
+      playerX -= 0.3;
 
     });
   }
 
   void moveRight (){
     setState(() {
-      playerX += 0.01;
+      playerX += 0.3;
 
     });
   }
@@ -85,8 +85,8 @@ class _HomePageState extends State<HomePage> {
               Brick(x: 0, y: -0.9),
               Brick(x: playerX, y: 0.7),
               Ball(x: ballX , y: ballY), 
-              Button(x: buttonLeftPositionX, y: buttonLeftPositionY,),
-              Button(x: buttonRightPositionX, y: buttonRightPositionY,),
+              Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
+              Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
             ],
           ),
         ),
@@ -100,8 +100,9 @@ class _HomePageState extends State<HomePage> {
 class Button extends StatelessWidget {
   final x ;
   final y ;
+  dynamic onTapp;
 
-  Button({this.x , this.y});
+  Button({this.x , this.y , this.onTapp});
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +114,9 @@ class Button extends StatelessWidget {
           color: Colors.red,
           height: 50,
           width: 50,
+          child: GestureDetector(
+            onTap: onTapp,
+          ),
         ),
       ),
     );
