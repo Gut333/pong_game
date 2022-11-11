@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame(){
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 4), (timer) { 
+    Timer.periodic(Duration(milliseconds: 1), (timer) { 
       setState(() {
         updateDirection();
         moveBall();
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   void updateDirection (){
     setState(() {
-      if (ballY >= 0.9){
+      if (ballY >= 0.7){
         ballDirection = direction.UP;
       } else if (ballY <= -0.9){
         ballDirection = direction.DOWN;
@@ -59,14 +59,14 @@ class _HomePageState extends State<HomePage> {
 
   void moveLeft (){
     setState(() {
-      playerX -= 0.3;
+      playerX -= 0.2;
 
     });
   }
 
   void moveRight (){
     setState(() {
-      playerX += 0.3;
+      playerX += 0.2;
 
     });
   }
@@ -74,21 +74,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: startGame,
-      child: Scaffold(
-        backgroundColor: Colors.grey,
-        body: Center(
-          child: Stack(
-            children: [
-              ToPlayScreen(gameHasStarted: gameHasStarted,),
-              Brick(x: 0, y: -0.9),
-              Brick(x: playerX, y: 0.7),
-              Ball(x: ballX , y: ballY), 
-              Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
-              Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      body: Center(
+        child: Stack(
+          children: [
+            ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
+            Brick(x: 0, y: -0.9),
+            Brick(x: playerX, y: 0.7),
+            Ball(x: ballX , y: ballY), 
+            Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
+            Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
+          ],
         ),
       ),
     );
