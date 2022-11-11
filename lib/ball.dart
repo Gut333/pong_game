@@ -11,10 +11,8 @@ class Ball extends StatelessWidget {
     return Container(
       alignment: Alignment(x,y),
       child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white), 
-          height: 25,
+        decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white), 
+          height: 20,
           width: 20,  
       ),
     );
