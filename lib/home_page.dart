@@ -16,9 +16,11 @@ class _HomePageState extends State<HomePage> {
   double playerX = 0;
   double ballX = 0;
   double ballY = 0;
-
   var ballDirection = direction.DOWN;
-  double joystickPosition = -1 ;
+  double buttonLeftPositionX = -0.90;
+  double buttonLeftPositionY = 0.90;
+  double buttonRightPositionX = 0.90;
+  double buttonRightPositionY = 0.90;
 
   void startGame(){
     gameHasStarted = true;
@@ -55,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void moveLeft (double x){
+  void moveLeft (){
     setState(() {
       playerX -= 0.01;
 
@@ -81,8 +83,10 @@ class _HomePageState extends State<HomePage> {
             children: [
               ToPlayScreen(gameHasStarted: gameHasStarted,),
               Brick(x: 0, y: -0.9),
-              Brick(x: playerX, y: 0.9),
+              Brick(x: playerX, y: 0.7),
               Ball(x: ballX , y: ballY), 
+              Button(x: buttonLeftPositionX, y: buttonLeftPositionY,),
+              Button(x: buttonRightPositionX, y: buttonRightPositionY,),
             ],
           ),
         ),
@@ -91,6 +95,28 @@ class _HomePageState extends State<HomePage> {
   }
 
 
+}
+
+class Button extends StatelessWidget {
+  final x ;
+  final y ;
+
+  Button({this.x , this.y});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment(x, y),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          color: Colors.red,
+          height: 50,
+          width: 50,
+        ),
+      ),
+    );
+  }
 }
 
 
