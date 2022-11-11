@@ -9,14 +9,20 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-enum direction { UP, DOWN }
+enum direction { UP, DOWN, LEFT, RIGHT}
 
 class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
   double playerX = 0;
+  double playerWidth = 0.4;
+
   double ballX = 0;
   double ballY = 0;
-  var ballDirection = direction.DOWN;
+  var ballYDirection = direction.DOWN;
+  var ballXDirection = direction.LEFT;
+  
+
+
   double buttonLeftPositionX = -0.90;
   double buttonLeftPositionY = 0.90;
   double buttonRightPositionX = 0.90;
@@ -38,24 +44,43 @@ class _HomePageState extends State<HomePage> {
 
   void updateDirection (){
     setState(() {
-      if (ballY >= 0.7){
-        ballDirection = direction.UP;
-      } else if (ballY <= -0.9){
-        ballDirection = direction.DOWN;
+      if (ballY >= 0.7 && playerX + playerWidth >= ballX && playerX + playerWidth <= ballX){
+        ballYDirection = direction.UP;
+      } else if (ballY <= -0.7){
+        ballYDirection = direction.DOWN;
       }
+
+
+      if(ballX >= 1){
+        ballXDirection = direction.LEFT;
+      } else if (ballX <= -1.0){
+        ballXDirection = direction.RIGHT;
+      }
+
     });
 
   }
 
   void moveBall (){
     setState(() {
-      if (ballDirection == direction.DOWN) {
+      if (ballYDirection == direction.DOWN) {
         ballY += 0.01 ;
-      } else if (ballDirection == direction.UP){
+      } else if (ballYDirection == direction.UP){
         ballY -= 0.01;
       }
+      if(ballXDirection == direction.LEFT){
+        ballX -= 0.01 ;
+
+      } else if (ballXDirection == direction.RIGHT){
+        ballX += 0.01;
+      }
+
     });
   }
+
+
+
+
 
   void moveLeft (){
     setState(() {
@@ -80,8 +105,8 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
-            Brick(x: 0, y: -0.9),
-            Brick(x: playerX, y: 0.7),
+            Brick(x: 0, y: -0.9, brickWidth: playerWidth,),
+            Brick(x: playerX, y: 0.7, brickWidth: playerWidth,),
             Ball(x: ballX , y: ballY), 
             Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
             Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
