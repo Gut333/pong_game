@@ -34,6 +34,11 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         updateDirection();
         moveBall();
+        
+        if(isPlayerDead()){
+          timer.cancel();
+          resetGame();
+        }
 
       });
       
@@ -41,12 +46,32 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void resetGame(){
+    setState(() {
+      gameHasStarted = false;
+      ballX = 0;
+      ballY = 0;
+      //playerX = -0.2;
+
+    });
+
+  }
+
+
+  bool isPlayerDead(){
+    if(ballY >= 1){
+      return true;
+    }
+
+    return false;
+
+  }
 
   void updateDirection (){
     setState(() {
-      if (ballY >= 0.7 && playerX + playerWidth >= ballX && playerX + playerWidth <= ballX){
+      if (ballY >= 0.7 && playerX + playerWidth >= ballX && playerX <= ballX){
         ballYDirection = direction.UP;
-      } else if (ballY <= -0.7){
+      } else if (ballY <= -0.9){
         ballYDirection = direction.DOWN;
       }
 
@@ -60,6 +85,8 @@ class _HomePageState extends State<HomePage> {
     });
 
   }
+
+
 
   void moveBall (){
     setState(() {
