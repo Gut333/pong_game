@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame(){
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 1), (timer) { 
+    Timer.periodic(Duration(milliseconds: 10), (timer) { 
       setState(() {
         updateDirection();
         moveBall();
@@ -135,6 +135,14 @@ class _HomePageState extends State<HomePage> {
             Brick(x: 0, y: -0.9, brickWidth: playerWidth,),
             Brick(x: playerX, y: 0.7, brickWidth: playerWidth,),
             Ball(x: ballX , y: ballY), 
+            Container(
+              alignment: Alignment(playerX,0.7),
+              child: Container(
+                width: 2,
+                height: 20,
+                color: Colors.red,
+              ),
+            ),
             Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
             Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
           ],
