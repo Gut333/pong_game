@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pong_game/ball.dart';
@@ -9,17 +11,19 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-enum direction { UP, DOWN, LEFT, RIGHT}
+enum Direction { UP, DOWN, LEFT, RIGHT}
 
 class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
   double playerX = 0;
   double playerWidth = 0.4;
 
+  double enemyX = 0;
+
   double ballX = 0;
   double ballY = 0;
-  var ballYDirection = direction.DOWN;
-  var ballXDirection = direction.LEFT;
+  var ballYDirection = Direction.DOWN;
+  var ballXDirection = Direction.LEFT;
   
   double buttonLeftPositionX = -0.90;
   double buttonLeftPositionY = 0.90;
@@ -32,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         updateDirection();
         moveBall();
+        enemyMovement();
         
         if(isPlayerDead()){
           timer.cancel();
@@ -51,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       ballY = 0;
       //playerX = -0.2;
 
+
     });
 
   }
@@ -67,16 +73,16 @@ class _HomePageState extends State<HomePage> {
   void updateDirection (){
     setState(() {
       if (ballY >= 0.7 && playerX + playerWidth >= ballX && playerX <= ballX){
-        ballYDirection = direction.UP;
+        ballYDirection = Direction.UP;
       } else if (ballY <= -0.9){
-        ballYDirection = direction.DOWN;
+        ballYDirection = Direction.DOWN;
       }
 
 
       if(ballX >= 1){
-        ballXDirection = direction.LEFT;
+        ballXDirection = Direction.LEFT;
       } else if (ballX <= -1.0){
-        ballXDirection = direction.RIGHT;
+        ballXDirection = Direction.RIGHT;
       }
 
     });
@@ -87,15 +93,15 @@ class _HomePageState extends State<HomePage> {
 
   void moveBall (){
     setState(() {
-      if (ballYDirection == direction.DOWN) {
+      if (ballYDirection == Direction.DOWN) {
         ballY += 0.01 ;
-      } else if (ballYDirection == direction.UP){
+      } else if (ballYDirection == Direction.UP){
         ballY -= 0.01;
       }
-      if(ballXDirection == direction.LEFT){
+      if(ballXDirection == Direction.LEFT){
         ballX -= 0.01 ;
 
-      } else if (ballXDirection == direction.RIGHT){
+      } else if (ballXDirection == Direction.RIGHT){
         ballX += 0.01;
       }
 
@@ -127,6 +133,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void enemyMovement () {
+    setState(() {
+      enemyX = ballX ;
+
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +150,7 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
-            Brick(x: 0, y: -0.9, brickWidth: playerWidth,),
+            Brick(x: enemyX, y: -0.9, brickWidth: playerWidth,),
             Brick(x: playerX, y: 0.7, brickWidth: playerWidth,),
             Ball(x: ballX , y: ballY), 
             Container(
