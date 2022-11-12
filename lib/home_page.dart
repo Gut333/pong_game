@@ -15,7 +15,7 @@ enum Direction { UP, DOWN, LEFT, RIGHT}
 
 class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
-  double playerX = 0;
+  double playerX = -0.2;
   double playerWidth = 0.4;
 
   double enemyX = 0;
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame(){
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 10), (timer) { 
+    Timer.periodic(Duration(milliseconds: 3), (timer) { 
       setState(() {
         updateDirection();
         moveBall();
@@ -49,26 +49,44 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+
   void resetGame(){
     setState(() {
       gameHasStarted = false;
       ballX = 0;
       ballY = 0;
-      //playerX = -0.2;
+
 
 
     });
 
   }
 
-
-  bool isPlayerDead(){
-    if(ballY >= 1){
+  bool isEnemyDead(){
+    if(ballY >= -1){
       return true;
     }
     return false;
 
   }
+
+
+  bool isPlayerDead(){
+    if(ballY >= 0.8){
+      return true;
+    }
+    return false;
+
+  }
+
+    void enemyMovement () {
+    setState(() {
+      enemyX = ballX ;
+
+    });
+
+  }
+
 
   void updateDirection (){
     setState(() {
@@ -77,7 +95,6 @@ class _HomePageState extends State<HomePage> {
       } else if (ballY <= -0.9){
         ballYDirection = Direction.DOWN;
       }
-
 
       if(ballX >= 1){
         ballXDirection = Direction.LEFT;
@@ -88,8 +105,6 @@ class _HomePageState extends State<HomePage> {
     });
 
   }
-
-
 
   void moveBall (){
     setState(() {
@@ -109,12 +124,9 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-
-
-
-  void moveLeft (){
+  void playerMoveLeft (){
     setState(() {
-      playerX -= 0.4;
+      playerX -= 0.2;
       if(playerX < -1){
         playerX = -1 ;
       }
@@ -123,9 +135,9 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void moveRight (){
+  void playerMoveRight (){
     setState(() {
-      playerX += 0.4;
+      playerX += 0.2;
       if(playerX > 0.7){
         playerX = 0.6;
       }
@@ -133,13 +145,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void enemyMovement () {
-    setState(() {
-      enemyX = ballX ;
-
-    });
-
-  }
 
 
   @override
@@ -161,8 +166,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
             ),
-            Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: moveLeft,),
-            Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: moveRight,),
+            Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: playerMoveLeft,),
+            Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: playerMoveRight,),
           ],
         ),
       ),
@@ -171,6 +176,9 @@ class _HomePageState extends State<HomePage> {
 
 
 }
+
+
+
 
 class Button extends StatelessWidget {
   final x ;
