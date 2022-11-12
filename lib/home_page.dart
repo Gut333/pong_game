@@ -21,8 +21,6 @@ class _HomePageState extends State<HomePage> {
   var ballYDirection = direction.DOWN;
   var ballXDirection = direction.LEFT;
   
-
-
   double buttonLeftPositionX = -0.90;
   double buttonLeftPositionY = 0.90;
   double buttonRightPositionX = 0.90;
@@ -62,7 +60,6 @@ class _HomePageState extends State<HomePage> {
     if(ballY >= 1){
       return true;
     }
-
     return false;
 
   }
@@ -111,14 +108,21 @@ class _HomePageState extends State<HomePage> {
 
   void moveLeft (){
     setState(() {
-      playerX -= 0.2;
+      playerX -= 0.4;
+      if(playerX < -1){
+        playerX = -1 ;
+      }
+
 
     });
   }
 
   void moveRight (){
     setState(() {
-      playerX += 0.2;
+      playerX += 0.4;
+      if(playerX > 0.7){
+        playerX = 0.6;
+      }
 
     });
   }
