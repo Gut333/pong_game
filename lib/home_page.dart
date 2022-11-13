@@ -30,6 +30,9 @@ class _HomePageState extends State<HomePage> {
   double buttonRightPositionX = 0.90;
   double buttonRightPositionY = 0.90;
 
+  double enemyBrickPositionY = -0.9;
+  double playerBrickPositionY = 0.7;
+
   void startGame(){
     gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 3), (timer) { 
@@ -155,17 +158,19 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
-            Brick(x: enemyX, y: -0.9, brickWidth: playerWidth,),
-            Brick(x: playerX, y: 0.7, brickWidth: playerWidth,),
-            Ball(x: ballX , y: ballY), 
-            Container(
-              alignment: Alignment(playerX,0.7),
-              child: Container(
-                width: 2,
-                height: 20,
-                color: Colors.red,
+            Brick(
+              x: enemyX, 
+              y: enemyBrickPositionY, 
+              brickWidth: playerWidth,
               ),
-            ),
+            Brick(
+              x: playerX, 
+              y: playerBrickPositionY, 
+              brickWidth: playerWidth,
+              ),
+            Ball(x: ballX , y: ballY), 
+            _brickReferenceTest(),
+
             Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: playerMoveLeft,),
             Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: playerMoveRight,),
           ],
@@ -174,6 +179,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+
+  Widget _brickReferenceTest(){
+    return Container(
+            alignment: Alignment(enemyX,enemyBrickPositionY),
+              child: Container(
+                width: 2,
+                height: 20,
+                color: Colors.blue,
+              ),
+            );
+  }
 
 }
 
