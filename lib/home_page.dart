@@ -2,10 +2,10 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pong_game/ball.dart';
-import 'package:pong_game/brick.dart';
+import 'package:pong_game/ball_component.dart';
+import 'package:pong_game/brick_component.dart';
 import 'package:pong_game/to_play_screen.dart';
-import 'button_component.dart';
+import 'package:pong_game/button_component.dart';
 
 class HomePage extends StatefulWidget {
   @override
