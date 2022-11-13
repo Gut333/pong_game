@@ -23,20 +23,18 @@ class _HomePageState extends State<HomePage> {
   double ballY = 0;
   var ballYDirection = Direction.DOWN;
   var ballXDirection = Direction.LEFT;
-  double buttonLeftPositionX = -0.90;
-  double buttonLeftPositionY = 0.95;
-  double buttonRightPositionX = 0.90;
-  double buttonRightPositionY = 0.95;
+
   double enemyBrickPositionY = -0.9;
   double playerBrickPositionY = 0.7;
 
   void startGame(){
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 3), (timer) { 
+    Timer.periodic(const Duration(milliseconds: 3), (timer) { 
       setState(() {
         updateDirection();
         moveBall();
         enemyMovement();
+        //automaticPlayerMovement();
         
         if(isPlayerDead()){
           timer.cancel();
@@ -80,11 +78,22 @@ class _HomePageState extends State<HomePage> {
 
     void enemyMovement () {
     setState(() {
-      enemyX = ballX ;
+      enemyX = ballX;
 
     });
 
   }
+
+
+      void automaticPlayerMovement () {
+    setState(() {
+      playerX = ballX ;
+
+    });
+
+  }
+
+
 
 
   void updateDirection (){
@@ -148,28 +157,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      body: Center(
-        child: Stack(
-          children: [
-            ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
-            Brick(
-              x: enemyX, 
-              y: enemyBrickPositionY, 
-              brickWidth: playerWidth,
-              ),
-            Brick(
-              x: playerX, 
-              y: playerBrickPositionY, 
-              brickWidth: playerWidth,
-              ),
-            Ball(x: ballX , y: ballY), 
-            _brickReferenceTest(),
-
-            Button(x: buttonLeftPositionX, y: buttonLeftPositionY,onTapp: playerMoveLeft,),
-            Button(x: buttonRightPositionX, y: buttonRightPositionY,onTapp: playerMoveRight,),
-          ],
+    return SafeArea(
+      child: Container(
+        color: Colors.amber,
+        height: 600,
+        child: Scaffold(
+          backgroundColor: Colors.grey,
+          body: Center(
+            child: Stack(
+              children: [
+                ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
+                Brick(
+                  x: enemyX, 
+                  y: enemyBrickPositionY, 
+                  brickWidth: playerWidth,
+                  ),
+                Brick(
+                  x: playerX, 
+                  y: playerBrickPositionY, 
+                  brickWidth: playerWidth,
+                  ),
+                Ball(x: ballX , y: ballY), 
+                _brickReferenceTest(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -183,7 +195,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 width: 2,
                 height: 20,
-                color: Colors.blue,
+                color: Colors.red,
               ),
             );
   }
