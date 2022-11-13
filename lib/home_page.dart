@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pong_game/ball.dart';
 import 'package:pong_game/brick.dart';
 import 'package:pong_game/to_play_screen.dart';
+import 'button_component.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,19 +18,15 @@ class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
   double playerX = -0.2;
   double playerWidth = 0.4;
-
   double enemyX = 0;
-
   double ballX = 0;
   double ballY = 0;
   var ballYDirection = Direction.DOWN;
   var ballXDirection = Direction.LEFT;
-  
   double buttonLeftPositionX = -0.90;
-  double buttonLeftPositionY = 0.90;
+  double buttonLeftPositionY = 0.95;
   double buttonRightPositionX = 0.90;
-  double buttonRightPositionY = 0.90;
-
+  double buttonRightPositionY = 0.95;
   double enemyBrickPositionY = -0.9;
   double playerBrickPositionY = 0.7;
 
@@ -58,7 +55,6 @@ class _HomePageState extends State<HomePage> {
       gameHasStarted = false;
       ballX = 0;
       ballY = 0;
-
 
 
     });
@@ -193,35 +189,3 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
-
-
-
-
-class Button extends StatelessWidget {
-  final x ;
-  final y ;
-  dynamic onTapp;
-
-  Button({this.x , this.y , this.onTapp});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment(x, y),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: Container(
-          color: Colors.red,
-          height: 50,
-          width: 50,
-          child: GestureDetector(
-            onTap: onTapp,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-
