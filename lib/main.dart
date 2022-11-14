@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pong_game/button_component.dart';
 import 'package:pong_game/home_page.dart';
-import 'package:pong_game/player_joystick_component.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,10 +26,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   
-  // double buttonLeftPositionX = -0.90;
-  // double buttonLeftPositionY = 0.95;
-  // double buttonRightPositionX = 0.90;
-  // double buttonRightPositionY = 0.95;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +34,10 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.indigo,
       body: Column(
         children: [
-          Container(height: 30.0,color: Colors.amber,),         
-          HomePage(),
-          PlayerJoystick(),     
+          Container(height: 20.0,color: Colors.amber,),         
+          Expanded(child: HomePage()), 
           ]),
       
-
-
     );
   }
 }

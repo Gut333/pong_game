@@ -8,6 +8,8 @@ class PlayerJoystick extends StatelessWidget {
   dynamic buttonCenterAction;
   dynamic buttonRightAction;
 
+  final bool? gameHasStarted;
+
 
 
   PlayerJoystick({super.key, 
@@ -15,6 +17,7 @@ class PlayerJoystick extends StatelessWidget {
     this.buttonLeftAction,
     this.buttonCenterAction,
     this.buttonRightAction,
+    this.gameHasStarted,
     
     });
 
@@ -33,7 +36,7 @@ class PlayerJoystick extends StatelessWidget {
     return Container(
       height: joystickHeight ,
       width: double.infinity,
-      color: Colors.pinkAccent,
+      color: Colors.black45,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -52,18 +55,22 @@ class PlayerJoystick extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
-        height: 50,
-        width: 50,
-        color: Colors.amber,
-        child: GestureDetector(
-          onTap: action,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          height: 50,
+          width: 50,
+          color: Colors.redAccent,
+          child: GestureDetector(
+            onTap: action,
+          ),
         ),
       ),
     );
   }
 
   Widget _startButton(dynamic action){
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
