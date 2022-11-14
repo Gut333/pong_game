@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MainPage(),
     );
@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.indigo,
       body: Column(
         children: [
-          Container(height: 100,color: Colors.amber,),         
+          Container(height: 30.0,color: Colors.amber,),         
           HomePage(),
           PlayerJoystick(),     
           ]),

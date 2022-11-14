@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:pong_game/button_component.dart';
 
 class PlayerJoystick extends StatelessWidget {
   
+  double? joystickHeight;
+  double? buttonSize;
+  dynamic buttonLeftAction;
+  dynamic buttonCenterAction;
+  dynamic buttonRightAction;
+
+
+
+  PlayerJoystick({super.key, 
+    this.joystickHeight = 100,
+    this.buttonLeftAction,
+    this.buttonCenterAction,
+    this.buttonRightAction,
+    
+    });
 
 
 
@@ -17,15 +31,15 @@ class PlayerJoystick extends StatelessWidget {
 
   Widget _body(){
     return Container(
-      height: 100,
+      height: joystickHeight ,
       width: double.infinity,
       color: Colors.pinkAccent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        _button(),
-        _startButton(),
-        _button(),
+        _button(buttonLeftAction),
+        _startButton(buttonCenterAction),
+        _button(buttonRightAction),
         
         
       ]),
@@ -34,24 +48,31 @@ class PlayerJoystick extends StatelessWidget {
     );
   }
 
-  Widget _button(){
+  Widget _button(dynamic action){
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 50,
         width: 50,
         color: Colors.amber,
+        child: GestureDetector(
+          onTap: action,
+        ),
       ),
     );
   }
 
-  Widget _startButton(){
+  Widget _startButton(dynamic action){
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 30,
         width: 80,
         color: Colors.amber,
+        child: GestureDetector(
+          onTap: action,
+        ),
       ),
     );
   }  
