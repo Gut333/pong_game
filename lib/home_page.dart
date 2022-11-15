@@ -167,6 +167,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               PlayerJoystick(
+                gameHasStarted: gameHasStarted,
                 buttonLeftAction: playerMoveLeft,
                 buttonCenterAction: startGame,
                 buttonRightAction: playerMoveRight,),

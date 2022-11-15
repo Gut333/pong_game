@@ -8,7 +8,7 @@ class PlayerJoystick extends StatelessWidget {
   dynamic buttonCenterAction;
   dynamic buttonRightAction;
 
-  final bool? gameHasStarted;
+  final bool gameHasStarted;
 
 
 
@@ -17,7 +17,7 @@ class PlayerJoystick extends StatelessWidget {
     this.buttonLeftAction,
     this.buttonCenterAction,
     this.buttonRightAction,
-    this.gameHasStarted,
+    required this.gameHasStarted,
     
     });
 
@@ -70,21 +70,39 @@ class PlayerJoystick extends StatelessWidget {
   }
 
   Widget _startButton(dynamic action){
+    if(gameHasStarted == false) {
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
-        height: 30,
-        width: 80,
-        color: Colors.amber,
-        child: GestureDetector(
-          onTap: action,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        child: Container(
+          color: Colors.amber,
+          height: 25,
+          width: 70,  
+          child: GestureDetector(
+            onTap: action,
+            child:  Center(
+              child: Text(gameHasStarted ? '' : 'START',
+              style: const TextStyle(
+                letterSpacing: 0.5,
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
+                ),
+                ),
+          ),
         ),
       ),
     );
+    }
+
+    else {
+      return const SizedBox(
+
+    );
+    }
+
   }  
-
-
 
 
 }
