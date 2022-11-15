@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:pong_game/ball_component.dart';
 import 'package:pong_game/brick_component.dart';
 import 'package:pong_game/player_joystick_component.dart';
-import 'package:pong_game/to_play_screen.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -157,9 +156,9 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Stack(
                   children: [
-                    //ToPlayScreen(gameHasStarted: gameHasStarted,startGame: startGame,),
                     Brick(x: enemyX, y: enemyBrickPositionY, brickWidth: playerWidth),
                     Brick(x: playerX, y: playerBrickPositionY, brickWidth: playerWidth),
+                    _centerLine(),
                     Ball(x: ballX , y: ballY), 
                     _brickReferenceTest(),
                   ],
@@ -178,6 +177,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _centerLine(){
+    return Center(
+      child: Container(
+        color: Colors.white,
+        height: 2,
+        width: double.infinity,
+      ),
+    );
+  }
 
 
   Widget _brickReferenceTest(){

@@ -13,15 +13,13 @@ class PlayerJoystick extends StatelessWidget {
 
 
   PlayerJoystick({super.key, 
-    this.joystickHeight = 100,
+    this.joystickHeight = 80,
     this.buttonLeftAction,
     this.buttonCenterAction,
     this.buttonRightAction,
     required this.gameHasStarted,
     
     });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +56,8 @@ class PlayerJoystick extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: Container(
-          height: 50,
-          width: 50,
+          height: 40,
+          width: 40,
           color: Colors.redAccent,
           child: GestureDetector(
             onTap: action,
@@ -71,7 +69,6 @@ class PlayerJoystick extends StatelessWidget {
 
   Widget _startButton(dynamic action){
     if(gameHasStarted == false) {
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ClipRRect(
@@ -82,9 +79,9 @@ class PlayerJoystick extends StatelessWidget {
           width: 70,  
           child: GestureDetector(
             onTap: action,
-            child:  Center(
-              child: Text(gameHasStarted ? '' : 'START',
-              style: const TextStyle(
+            child:  const Center(
+              child: Text('START',
+              style:  TextStyle(
                 letterSpacing: 0.5,
                 fontSize: 12,
                 fontWeight: FontWeight.bold),
@@ -95,14 +92,11 @@ class PlayerJoystick extends StatelessWidget {
       ),
     );
     }
-
     else {
       return const SizedBox(
-
     );
     }
 
   }  
-
 
 }

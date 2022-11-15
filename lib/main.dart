@@ -31,10 +31,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.grey,
       body: Column(
         children: [
-          Container(height: 20.0,color: Colors.amber,),         
+          Container(height: 30.0,color: Colors.black45,),         
           Expanded(child: HomePage()), 
           ]),
       
