@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         updateDirection();
         moveBall();
         enemyMovement();
-        //automaticPlayerMovement();       
+        automaticPlayerMovement();       
         if(isPlayerDead()){
           timer.cancel();
           resetGame();
@@ -74,8 +74,19 @@ class _HomePageState extends State<HomePage> {
     void enemyMovement () {
       setState(() {
         enemyX = ballX;
+
+        if(ballX < -1){
+          enemyX = -1 ;
+
+        }else if(ballX > 0.7){
+          enemyX = 0.6;
+        }
+
       });
+
+
   }
+
 
     void automaticPlayerMovement () {
       setState(() {
