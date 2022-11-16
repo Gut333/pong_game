@@ -7,6 +7,7 @@ class PlayerJoystick extends StatelessWidget {
   dynamic buttonLeftAction;
   dynamic buttonCenterAction;
   dynamic buttonRightAction;
+  Color? buttonColor;
 
   final bool gameHasStarted;
 
@@ -17,6 +18,7 @@ class PlayerJoystick extends StatelessWidget {
     this.buttonLeftAction,
     this.buttonCenterAction,
     this.buttonRightAction,
+    this.buttonColor = Colors.redAccent,
     required this.gameHasStarted,
     
     });
@@ -58,7 +60,7 @@ class PlayerJoystick extends StatelessWidget {
         child: Container(
           height: 40,
           width: 40,
-          color: Colors.redAccent,
+          color: buttonColor,
           child: GestureDetector(
             onTap: action,
           ),
