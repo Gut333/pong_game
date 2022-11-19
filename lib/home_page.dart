@@ -21,8 +21,10 @@ class _HomePageState extends State<HomePage> {
   double playerX = -0.2;
   double playerWidth = 0.4;
   double enemyX = -0.2;
+
   double ballX = 0;
   double ballY = 0;
+
   var ballYDirection = Direction.DOWN;
   var ballXDirection = Direction.LEFT;
 
@@ -35,14 +37,17 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         updateDirection();
         moveBall();
-        enemyMovement();
+        iAMovement();
         automaticPlayerMovement();       
         if(isPlayerDead()){
           timer.cancel();
           resetGame();
         }
 
+
       });
+
+      
       
 
     });
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool isEnemyDead(){
-      if(ballY >= -1){
+      if(ballY >= -1.0){
         return true;
       }
       return false;
@@ -71,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       return false;
   }
 
-    void enemyMovement () {
+    void iAMovement () {
       setState(() {
         enemyX = ballX;
 
