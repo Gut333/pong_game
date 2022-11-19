@@ -19,9 +19,13 @@ class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
   double playerX = -0.2;
   double playerWidth = 0.4;
+
   double playerTwoX = -0.2;
+  double playerTwoWidth = 0.4;
+
   double enemyX = -0.2;
   double enemyWidth = 0.4;
+
   double ballX = 0;
   double ballY = 0;
   var ballYDirection = Direction.DOWN;
@@ -36,8 +40,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         updateDirection();
         moveBall();
-        enemyMovement();
-        //automaticPlayerMovement();       
+        //enemyMovement();
+        automaticPlayerMovement();       
           if(isEnemyDead()){
             timer.cancel();
             resetGame();
@@ -61,6 +65,8 @@ class _HomePageState extends State<HomePage> {
       ballX = 0;
       ballY = 0;
       playerX = -0.2;
+      enemyX = -0.2;
+      playerTwoX = -0.2;
     });
   }
 
@@ -102,14 +108,16 @@ class _HomePageState extends State<HomePage> {
       });
 
   }
-
+  
 
 
   void updateDirection (){
       setState(() {
-        if (ballY >= 0.9 && playerX + playerWidth >= ballX && playerX <= ballX){
+        if (ballY >= playerBrickPositionY && playerX + playerWidth >= ballX && playerX <= ballX){
           ballYDirection = Direction.UP;
-        } else if (ballY <= -1){
+        } else if (ballY <= enemyBrickPositionY && playerTwoX - playerTwoWidth <= ballX && playerTwoX <= ballX ){
+          //ball y = 0 
+          //enemy brick position -0.9
           ballYDirection = Direction.DOWN;
         }
 
@@ -144,7 +152,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-///////player one///////////
+///////player one movement///////////
   void playerMoveLeft (){
       setState(() {
         playerX -= 0.2;
@@ -163,8 +171,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
-
-///////player two/////////////
+///////player two movement/////////////
   void playerTwoMoveLeft (){
       setState(() {
         playerTwoX -= 0.2;
@@ -173,7 +180,6 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
-
 
   void playerTwoMoveRight (){
       setState(() {
@@ -184,6 +190,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
+/////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -205,10 +212,11 @@ class _HomePageState extends State<HomePage> {
                 child: Stack(
                   children: [
                     //Brick(x: enemyX, y: enemyBrickPositionY, brickWidth: playerWidth),
-                    Brick(x: playerTwoX, y: enemyBrickPositionY, brickWidth: playerWidth),
+                    Brick(x: playerTwoX, y: enemyBrickPositionY, brickWidth: playerTwoWidth),
                     Brick(x: playerX, y: playerBrickPositionY, brickWidth: playerWidth),
                     _centerLine(),
                     Ball(x: ballX , y: ballY), 
+                    _brickReferenceTest(), 
                   ],
               
                 ),
@@ -218,6 +226,7 @@ class _HomePageState extends State<HomePage> {
                 buttonLeftAction: playerMoveLeft,
                 buttonCenterAction: startGame,
                 buttonRightAction: playerMoveRight,),
+ 
             ],
           ),
         ),
@@ -238,7 +247,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _brickReferenceTest(){
     return Container(
-            alignment: Alignment(enemyX,enemyBrickPositionY),
+            alignment: Alignment(playerTwoX,enemyBrickPositionY),
               child: Container(
                 width: 2,
                 height: 20,
