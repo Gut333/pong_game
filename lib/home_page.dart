@@ -9,6 +9,7 @@ import 'package:pong_game/player_joystick_component.dart';
 
 class HomePage extends StatefulWidget {
 
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
   bool gameHasStarted = false;
   double playerX = -0.2;
   double playerWidth = 0.4;
-  double playerTwoX = -0.2;
   double enemyX = -0.2;
-  double enemyWidth = 0.4;
   double ballX = 0;
   double ballY = 0;
   var ballYDirection = Direction.DOWN;
@@ -37,17 +36,11 @@ class _HomePageState extends State<HomePage> {
         updateDirection();
         moveBall();
         enemyMovement();
-        //automaticPlayerMovement();       
-          if(isEnemyDead()){
-            timer.cancel();
-            resetGame();
-          }
-
-          if(isPlayerDead()){
-            timer.cancel();
-            resetGame();
-          }
-
+        automaticPlayerMovement();       
+        if(isPlayerDead()){
+          timer.cancel();
+          resetGame();
+        }
 
       });
       
@@ -60,12 +53,11 @@ class _HomePageState extends State<HomePage> {
       gameHasStarted = false;
       ballX = 0;
       ballY = 0;
-      playerX = -0.2;
     });
   }
 
   bool isEnemyDead(){
-      if(ballY <= -1.0){
+      if(ballY >= -1){
         return true;
       }
       return false;
@@ -109,10 +101,9 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (ballY >= 0.9 && playerX + playerWidth >= ballX && playerX <= ballX){
           ballYDirection = Direction.UP;
-        } else if (ballY <= -1){
+        } else if (ballY <= -0.9){
           ballYDirection = Direction.DOWN;
         }
-
 
         if(ballX >= 1){
           ballXDirection = Direction.LEFT;
@@ -124,7 +115,6 @@ class _HomePageState extends State<HomePage> {
 
   }
 
-/////ball movement//////////
   void moveBall (){
       setState(() {
         if (ballYDirection == Direction.DOWN) {
@@ -144,7 +134,6 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-///////player one///////////
   void playerMoveLeft (){
       setState(() {
         playerX -= 0.2;
@@ -153,6 +142,7 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
+
 
   void playerMoveRight (){
       setState(() {
@@ -164,26 +154,6 @@ class _HomePageState extends State<HomePage> {
     }
 
 
-///////player two/////////////
-  void playerTwoMoveLeft (){
-      setState(() {
-        playerTwoX -= 0.2;
-        if(playerTwoX < -1){
-          playerTwoX = -1 ;
-        }
-      });
-    }
-
-
-  void playerTwoMoveRight (){
-      setState(() {
-        playerTwoX += 0.2;
-        if(playerTwoX > 0.7){
-          playerTwoX = 0.6;
-        }
-      });
-    }
-
 
   @override
   Widget build(BuildContext context) {
@@ -194,21 +164,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PlayerJoystick(
-                gameHasStarted: gameHasStarted,
-                buttonLeftAction: playerTwoMoveLeft,
-                buttonCenterAction: startGame,
-                buttonRightAction: playerTwoMoveRight,
-                buttonColor: Colors.blueAccent,
-                ),              
               Expanded(
                 child: Stack(
                   children: [
-                    //Brick(x: enemyX, y: enemyBrickPositionY, brickWidth: playerWidth),
-                    Brick(x: playerTwoX, y: enemyBrickPositionY, brickWidth: playerWidth),
+                    Brick(x: enemyX, y: enemyBrickPositionY, brickWidth: playerWidth),
                     Brick(x: playerX, y: playerBrickPositionY, brickWidth: playerWidth),
                     _centerLine(),
                     Ball(x: ballX , y: ballY), 
+                    _brickReferenceTest(),
                   ],
               
                 ),
